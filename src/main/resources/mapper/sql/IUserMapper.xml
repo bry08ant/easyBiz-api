@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njcool.console.dao.UserMapper">
+
+    <select id="queryUserList" resultType="com.njcool.console.common.domain.UserDo">
+        select
+            id                  as id,
+            name                as userName,
+            password            as password,
+            telephone           as telephone,
+            status               as status
+         from console_user
+    </select>
+
+    <select id="getUserByUserId" resultType="com.njcool.console.common.domain.UserDo">
+        select
+            u.id                      as id,
+            u.name                    as name,
+            u.avator                  as avator,
+            u.telephone               as telephone,
+            u.permission_ids          as permissionIds,
+            u.last_login_time         as lastLoginTime,
+            u.type                    as type,
+            u.status                  as status
+         from console_user u where u.id = #{userId}
+    </select>
+
+    <select id="getUserByTelephone"  resultType="com.njcool.console.common.domain.UserDo">
+        select
+            u.id                      as id,
+            u.name                    as name,
+            u.telephone               as telephone,
+            u.password                as password,
+            u.avator                  as avator,
+            u.permission_ids          as permissionIds,
+            u.last_login_time         as lastLoginTime,
+            u.type                    as type,
+            u.status                  as status
+         from console_user u where u.telephone = #{telephone}
+    </select>
+
+    <update id="updateUserLoginTime">
+        update console_user set
+            last_login_time = current_login_time,
+            current_login_time = sysdate()
+        where id = #{userId}
+    </update>
+
+</mapper>

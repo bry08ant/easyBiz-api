@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njcool.console.dao.MenuMapper">
+
+    <select id="queryUserMenus" resultType="com.njcool.console.common.domain.MenuDo">
+        select
+            m.id        as id, m.title     as title,m.code      as code,m.icon       as icon,
+            m.url       as name,m.href      as href,m.sort       as sort,m.parent_id  as parentId
+        from console_menu m
+        where m.status = 1
+        and exists (select 1 from console_user u where find_in_set(m.id, u.permission_ids))
+    </select>
+
+</mapper>
