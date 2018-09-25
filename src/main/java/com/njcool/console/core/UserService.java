@@ -1,12 +1,14 @@
 package com.njcool.console.core;
 
 import com.njcool.console.auth.TokenManager;
+import com.njcool.console.common.domain.PageDo;
 import com.njcool.console.common.domain.UserDo;
 import com.njcool.console.dao.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xfe
@@ -19,8 +21,20 @@ public class UserService {
     @Autowired
     private UserMapper userDao;
 
-    /*@Autowired
-    private RedisCache cache;*/
+    /**
+     * 分页查询用户信息
+     * @param condition
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public PageDo<UserDo> queryAccountPageData(Map<String,Object> condition, int currentPage, int pageSize) {
+        int offset = (currentPage - 1) * pageSize;
+        condition.put("type", TokenManager.getToken().getType());
+        int total = userDao.queryAccountTotal(condition);
+        List<UserDo> userList = userDao.queryAccountListByPage(condition, offset, pageSize);
+        return new PageDo(userList, total);
+    }
 
     /**
      * 根据用户号码查询用户信息
@@ -54,9 +68,4 @@ public class UserService {
         return userDao.getUserByUserId(userId);
     }
 
-    public List<UserDo> queryUserList() {
-        List<UserDo> userList =  userDao.queryUserList();
-        //cache.set("User:"+System.currentTimeMillis(), JSON.toJSONString(userList));
-        return userList;
-    }
 }

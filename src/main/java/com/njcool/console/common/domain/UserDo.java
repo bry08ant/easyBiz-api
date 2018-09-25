@@ -25,6 +25,8 @@ public class UserDo implements Serializable {
 
     private Integer type;
 
+    private String createTime;
+
     private int status;
 
     public Integer getId() {
@@ -89,6 +91,14 @@ public class UserDo implements Serializable {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public int getStatus() {

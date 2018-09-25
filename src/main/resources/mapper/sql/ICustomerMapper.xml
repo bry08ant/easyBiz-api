@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njcool.console.dao.CustomerMapper">
+
+    <select id="queryCustomerTotal" resultType="int">
+        select count(1) from easy_biz_customer_user
+    </select>
+
+    <select id="queryCustomerListByPage" resultType="com.njcool.console.common.domain.CustomerDo">
+        select
+            cu.id                             as id,
+            cu.wx_union_id                    as wxUnionId,
+            cu.user_name                      as userName,
+            cu.telephone                      as telephone,
+            cu.email                          as email,
+            cu.company                        as company,
+            cu.position                       as position,
+            cu.address                        as address,
+            cu.motto                          as motto,
+            cu.personal_profile               as personalProfile,
+            cu.head_portrait                  as headPortrait,
+            cu.collectibles                   as collectibles,
+            cu.create_time                    as createTime,
+            cu.update_time                    as updateTime
+        from easy_biz_customer_user cu
+        order by cu.create_time
+        limit #{limit} offset #{offset}
+    </select>
+
+
+</mapper>

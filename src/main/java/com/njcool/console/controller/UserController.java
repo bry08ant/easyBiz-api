@@ -1,6 +1,7 @@
 package com.njcool.console.controller;
 
 import com.njcool.console.common.constant.RespBody;
+import com.njcool.console.common.domain.PageDo;
 import com.njcool.console.common.domain.UserDo;
 import com.njcool.console.core.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xfe
  * @Date 2018/9/12
- * @Desc
+ * @Desc 用户管理相关
  */
 @CrossOrigin
 @RestController
@@ -23,10 +26,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "list",method = RequestMethod.POST)
+    /**
+     * 分页查询账号信息
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "queryAccountPageData",method = RequestMethod.POST)
     @ResponseBody
-    public List<UserDo> queryUserList(HttpServletRequest request, HttpServletResponse response) {
-        return userService.queryUserList();
+    public RespBody<PageDo<UserDo>> queryAccountPageData(HttpServletRequest request, HttpServletResponse response) {
+        Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
+        Integer currentPage = Integer.valueOf(request.getParameter("currentPage"));
+        Map<String,Object> params = new HashMap<>();
+        return new RespBody(userService.queryAccountPageData(params, currentPage, pageSize));
     }
 
     /**

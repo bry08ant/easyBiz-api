@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * @author xfe
  * @Date 2018/9/12
- * @Desc
+ * @Desc 系统相关接口
  */
 @CrossOrigin
 @RestController

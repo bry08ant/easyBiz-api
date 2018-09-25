@@ -4,14 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.njcool.console.dao.UserMapper">
 
-    <select id="queryUserList" resultType="com.njcool.console.common.domain.UserDo">
+    <select id="queryAccountTotal" resultType="int">
+        select count(1) from console_user cu
+        where cu.type > #{condition.type}
+    </select>
+
+    <select id="queryAccountListByPage" resultType="com.njcool.console.common.domain.UserDo">
         select
-            id                  as id,
-            name                as userName,
-            password            as password,
-            telephone           as telephone,
-            status               as status
-         from console_user
+            cu.id                           as id,
+            cu.name                         as name,
+            cu.telephone                    as telephone,
+            cu.avator                       as avator,
+            cu.current_login_time           as lastLoginTime,
+            cu.create_time                  as createTime,
+            cu.type                         as type,
+            cu.status                       as status
+        from console_user cu
+        where cu.type > #{condition.type}
+        order by cu.create_time
+        limit #{limit} offset #{offset}
     </select>
 
     <select id="getUserByUserId" resultType="com.njcool.console.common.domain.UserDo">

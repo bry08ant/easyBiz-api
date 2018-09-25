@@ -1,9 +1,11 @@
 package com.njcool.console.dao;
 
 import com.njcool.console.common.domain.UserDo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xfe
@@ -12,6 +14,22 @@ import java.util.List;
  */
 @Component
 public interface UserMapper {
+
+    /**
+     * 查询所有客户的数目
+     * @param condition
+     * @return
+     */
+    int queryAccountTotal(@Param(value = "condition") Map<String,Object> condition);
+
+    /**
+     * 分页查询客户信息
+     * @param condition
+     * @param offset
+     * @param limit
+     * @return
+     */
+    List<UserDo> queryAccountListByPage(@Param(value = "condition") Map<String,Object> condition, @Param(value = "offset") int offset, @Param(value = "limit") int limit);
 
     /**
      * 根据用户号码查询用户信息
@@ -29,5 +47,4 @@ public interface UserMapper {
 
     UserDo getUserByUserId(Integer userId);
 
-    List<UserDo> queryUserList();
 }
