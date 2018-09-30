@@ -52,4 +52,31 @@ public class UserController {
     public RespBody getUserInfo(HttpServletRequest request, HttpServletResponse response) {
         return new RespBody(userService.getUserInfo());
     }
+
+    /**
+     * 获取登录用户信息
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "updateAccountPassword",method = RequestMethod.POST)
+    @ResponseBody
+    public RespBody updateAccountPassword(HttpServletRequest request, HttpServletResponse response) {
+        String oldPwd = request.getParameter("oldPwd");
+        String newPwd = request.getParameter("newPwd");
+        return userService.updateAccountPassword(oldPwd, newPwd);
+    }
+
+    /**
+     * 获取账号信息
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "getAccountInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public RespBody getAccountInfo(HttpServletRequest request, HttpServletResponse response) {
+
+        return new RespBody(userService.getAccountInfo());
+    }
 }

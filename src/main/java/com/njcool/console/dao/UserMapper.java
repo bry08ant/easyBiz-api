@@ -45,6 +45,26 @@ public interface UserMapper {
      */
     int updateUserLoginTime(Integer userId);
 
+    /**
+     * 根据id查询用户信息
+     * @param userId
+     * @return
+     */
     UserDo getUserByUserId(Integer userId);
+
+    /**
+     * 获取用户密码
+     * @param userId
+     * @return
+     */
+    String getUserPassword(Integer userId);
+
+    /**
+     * 更新账号的密码
+     * @param userId
+     * @param newPwd
+     * @return
+     */
+    int updateAccountPassword(@Param(value = "userId") Integer userId, @Param(value = "newPwd") String newPwd);
 
 }

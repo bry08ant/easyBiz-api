@@ -56,7 +56,7 @@ public class AuthenticationFilter extends AccessControlFilter {
         //httpRequest.getRequestDispatcher(unauthenticatedUrl).forward(request, response);
         //判断是不是Ajax请求
         //if (ShiroFilterUtils.isAjax(httpRequest)) {
-            out(response, new RespBody(ConsoleStatus.RespCode.C101, "登录已失效，请重新登录！"));
+            out(response, new RespBody(ConsoleStatus.RespCode.C110, "登录已失效，请重新登录！"));
             LOG.debug("登录已失效，请重新登录！");
         //}
 

@@ -1,11 +1,15 @@
 package com.njcool.console.core;
 
 import com.njcool.console.auth.TokenManager;
+import com.njcool.console.common.constant.ConsoleStatus;
+import com.njcool.console.common.constant.RespBody;
 import com.njcool.console.common.domain.PageDo;
 import com.njcool.console.common.domain.UserDo;
 import com.njcool.console.dao.UserMapper;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -62,10 +66,46 @@ public class UserService {
         return userDao.getUserByUserId(TokenManager.getUserId());
     }
 
+    /**
+     * 更新账户密码
+     * @param oldPwd
+     * @param newPwd
+     * @return
+     */
+    public RespBody updateAccountPassword (String oldPwd, String newPwd) {
+        Integer userId = TokenManager.getUserId();
+        String password = userDao.getUserPassword(userId);
+        if (!password.equals(getMd5Pwd(oldPwd))) {
+            return  new RespBody(ConsoleStatus.RespCode.C102, "原始密码错误");
+        }
 
-
-    public UserDo getUserByUserId(Integer userId) {
-        return userDao.getUserByUserId(userId);
+        if (userDao.updateAccountPassword(userId, getMd5Pwd(newPwd)) < 1) {
+            return  new RespBody(ConsoleStatus.RespCode.C102, "密码修改失败");
+        }
+        // 清空登录信息
+        TokenManager.logout();
+        return new RespBody();
     }
+
+    /**
+     * 获取账户信息
+     * @return
+     */
+    public Object getAccountInfo() {
+
+        return null;
+    }
+
+    /**
+     * MD%加密操作
+     * @param password
+     * @return
+     */
+    private String getMd5Pwd (String password) {
+        // ByteSource salt = ByteSource.Util.bytes(xxx.getUsername());//以账号作为盐值
+        SimpleHash hash = new SimpleHash("MD5", password, null,1);
+        return hash.toString();
+    }
+
 
 }

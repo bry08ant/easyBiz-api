@@ -69,7 +69,7 @@ public class PermissionFilter extends AccessControlFilter {
     {
         //判断是不是Ajax请求
         //if (ShiroFilterUtils.isAjax(request)) {
-            out(response, new RespBody(ConsoleStatus.RespCode.C101, "权限不足，请联系管理员！"));
+            out(response, new RespBody(ConsoleStatus.RespCode.C112, "权限不足，请联系管理员！"));
             LOG.debug("权限不足，请联系管理员！");
        // }
 
