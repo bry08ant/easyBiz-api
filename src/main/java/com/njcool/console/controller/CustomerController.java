@@ -24,6 +24,12 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    /**
+     * 查询客户列表
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "queryCustomerPageData",method = RequestMethod.POST)
     @ResponseBody
     public RespBody<PageDo<CustomerDo>> queryCustomerPageData(HttpServletRequest request, HttpServletResponse response) {
@@ -32,4 +38,19 @@ public class CustomerController {
         Map<String,Object> params = new HashMap<>();
         return new RespBody(customerService.queryCustomerPageData(params, currentPage, pageSize));
     }
+
+    /**
+     * 查询新增用户数据
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "queryAddCustomerData",method = RequestMethod.POST)
+    @ResponseBody
+    public RespBody queryAddCustomerData(HttpServletRequest request, HttpServletResponse response) {
+        String dateRange = request.getParameter("dateRange");
+        return new RespBody(customerService.queryAddCustomerData(dateRange));
+    }
+
+
 }

@@ -1,13 +1,12 @@
 package com.njcool.console.core;
 
-import com.njcool.console.auth.TokenManager;
-import com.njcool.console.common.constant.RespBody;
 import com.njcool.console.common.domain.CustomerDo;
 import com.njcool.console.common.domain.PageDo;
 import com.njcool.console.dao.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,5 +33,14 @@ public class CustomerService {
         int total = customerDao.queryCustomerTotal(condition);
         List<CustomerDo> customerList = customerDao.queryCustomerListByPage(condition, offset, pageSize);
         return new PageDo(customerList, total);
+    }
+
+    /**
+     * 查询新增的用户数
+     * @param dateRange
+     * @return
+     */
+    public List<Map<String, Object>> queryAddCustomerData(String dateRange) {
+        return new ArrayList<>();
     }
 }
