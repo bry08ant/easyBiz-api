@@ -5,7 +5,16 @@
 <mapper namespace="com.njcool.console.dao.CustomerMapper">
 
     <select id="queryCustomerTotal" resultType="int">
-        select count(1) from easy_biz_customer_user
+        select count(1) from easy_biz_customer_user where 1 = 1
+        <if test="condition.userName != null and condition.userName != ''">
+            and user_name like concat('%',#{condition.userName},'%')
+        </if>
+        <if test="condition.telephone != null and condition.telephone != ''">
+            and telephone like concat('%',#{condition.telephone},'%')
+        </if>
+        <if test="condition.wxUnionId != null and condition.wxUnionId != ''">
+            and wx_union_id like concat('%',#{condition.wxUnionId},'%')
+        </if>
     </select>
 
     <select id="queryCustomerListByPage" resultType="com.njcool.console.common.domain.CustomerDo">
@@ -25,6 +34,16 @@
             cu.create_time                    as createTime,
             cu.update_time                    as updateTime
         from easy_biz_customer_user cu
+        where 1 = 1
+        <if test="condition.userName != null and condition.userName != ''">
+            and user_name like concat('%',#{condition.userName},'%')
+        </if>
+        <if test="condition.telephone != null and condition.telephone != ''">
+            and telephone like concat('%',#{condition.telephone},'%')
+        </if>
+        <if test="condition.wxUnionId != null and condition.wxUnionId != ''">
+            and wx_union_id like concat('%',#{condition.wxUnionId},'%')
+        </if>
         order by cu.create_time
         limit #{limit} offset #{offset}
     </select>

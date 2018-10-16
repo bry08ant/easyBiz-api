@@ -20,7 +20,7 @@ public interface CustomerMapper {
      * @param condition
      * @return
      */
-    int queryCustomerTotal(Map<String,Object> condition);
+    int queryCustomerTotal(@Param(value = "condition") Map<String,Object> condition);
 
     /**
      * 分页查询客户信息

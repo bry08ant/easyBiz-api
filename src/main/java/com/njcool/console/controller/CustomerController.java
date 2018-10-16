@@ -35,8 +35,18 @@ public class CustomerController {
     public RespBody<PageDo<CustomerDo>> queryCustomerPageData(HttpServletRequest request, HttpServletResponse response) {
         Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
         Integer currentPage = Integer.valueOf(request.getParameter("currentPage"));
-        Map<String,Object> params = new HashMap<>();
-        return new RespBody(customerService.queryCustomerPageData(params, currentPage, pageSize));
+
+        String userName = request.getParameter("userName");
+        String telephone = request.getParameter("telephone");
+        String wxUnionId = request.getParameter("wxUnionId");
+
+        return new RespBody(customerService.queryCustomerPageData(new HashMap<String, Object>(){
+            {
+                put("userName", userName);
+                put("telephone", telephone);
+                put("wxUnionId", wxUnionId);
+            }
+        }, currentPage, pageSize));
     }
 
     /**
