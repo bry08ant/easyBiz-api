@@ -5,7 +5,7 @@
 <mapper namespace="com.njcool.console.dao.CustomerMapper">
 
     <select id="queryCustomerTotal" resultType="int">
-        select count(1) from easy_biz_customer_user where 1 = 1
+        select count(1) from easy_biz.easy_biz_customer_user where 1 = 1
         <if test="condition.userName != null and condition.userName != ''">
             and user_name like concat('%',#{condition.userName},'%')
         </if>
@@ -33,7 +33,7 @@
             cu.collectibles                   as collectibles,
             cu.create_time                    as createTime,
             cu.update_time                    as updateTime
-        from easy_biz_customer_user cu
+        from easy_biz.easy_biz_customer_user cu
         where 1 = 1
         <if test="condition.userName != null and condition.userName != ''">
             and user_name like concat('%',#{condition.userName},'%')
