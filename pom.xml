@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>console</name>
+    <name>easy-biz-console</name>
     <description>easyBizConsole project for Spring Boot</description>
 
     <parent>
