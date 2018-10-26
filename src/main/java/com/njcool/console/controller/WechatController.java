@@ -1,7 +1,7 @@
 package com.njcool.console.controller;
 
-import com.njcool.console.core.WechatService;
 import me.chanjar.weixin.common.error.WxErrorException;
+import me.chanjar.weixin.open.api.impl.WxOpenServiceImpl;
 import me.chanjar.weixin.open.bean.message.WxOpenXmlMessage;
 import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
 import me.chanjar.weixin.open.bean.result.WxOpenQueryAuthResult;
@@ -29,7 +29,7 @@ public class WechatController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private WechatService wechatService;
+    private WxOpenServiceImpl wechatService;
 
     /**
      * 首次启动后需要 等待收到 微信推送的 component_verify_ticket 后才可以使用其他接口

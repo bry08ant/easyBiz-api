@@ -16,7 +16,6 @@ import javax.annotation.PostConstruct;
  * @author vino
  * @create 2018-09-07
  **/
-@Service
 public class WechatService extends WxOpenServiceImpl {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
